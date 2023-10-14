@@ -7,7 +7,7 @@
   "overrides": [
     {
       "extends": ["xo-typescript", "prettier"],
-      "files": ["*.ts", "*.tsx"],
+      "files": ["*.ts"],
       "rules": {
         "@typescript-eslint/consistent-type-definitions": [
           "error",
@@ -15,7 +15,13 @@
         ],
         "no-unused-vars": "error",
         "no-console": "error",
-        "no-new": 0
+        "no-new": 0,
+        "new-cap": [
+          "error",
+          {
+            "capIsNewExceptions": ["Router"]
+          }
+        ]
       }
     },
     {
