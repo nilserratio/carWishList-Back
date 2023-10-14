@@ -4,6 +4,11 @@ import bcrypt from "bcryptjs";
 import { type UserCredentialsRequest } from "../../types";
 import User from "../../../database/models/User";
 import CustomError from "../../CustomError/CustomError.js";
+import {
+  privateMessage,
+  publicMessage,
+  statusCode,
+} from "../../utils/responseData/responseData.js";
 
 export const loginUser = async (
   req: UserCredentialsRequest,
@@ -17,9 +22,9 @@ export const loginUser = async (
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
       const error = new CustomError(
-        401,
-        "Wrong Credentials",
-        "You are trying to login with Wrong Credentials"
+        statusCode.unauthorized,
+        privateMessage.unauthorized,
+        publicMessage.unauthorized
       );
 
       throw error;
