@@ -17,6 +17,12 @@
         "no-console": "error",
         "no-new": 0
       }
+    },
+    {
+      "files": ["src/**/models/*.ts"],
+      "rules": {
+        "@typescript-eslint/naming-convention": "off"
+      }
     }
   ],
   "parserOptions": {
