@@ -3,5 +3,10 @@ module.exports = {
   preset: "ts-jest",
   testMatch: ["**/src/**/*.test.ts"],
   resolver: "jest-ts-webcompat-resolver",
-  collectCoverageFrom: ["src/**/*.ts", "!src/index.ts"],
+  collectCoverageFrom: [
+    "src/**/*.ts",
+    "!src/index.ts",
+    "!src/loadEnvironment.ts",
+    "!src/server/app.ts",
+  ],
 };
