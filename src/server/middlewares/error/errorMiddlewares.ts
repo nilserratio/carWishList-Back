@@ -2,6 +2,12 @@ import { type NextFunction, type Request, type Response } from "express";
 import createDebug from "debug";
 import chalk from "chalk";
 import CustomError from "../../CustomError/CustomError.js";
+import {
+  privateMessage,
+  publicMessage,
+  statusCode,
+} from "../../utils/responseData/responseData.js";
+import { ValidationError } from "express-validation";
 
 const debug = createDebug("Recomotor-api:server:middleware:errorMiddlewares");
 
@@ -11,9 +17,9 @@ export const notFoundError = (
   next: NextFunction
 ) => {
   const error = new CustomError(
-    404,
-    "Endpoint not found",
-    "The endpoint you provided doesn't exist"
+    statusCode.notFound,
+    privateMessage.notFound,
+    publicMessage.notFound
   );
 
   next(error);
@@ -27,11 +33,20 @@ export const generalError = (
 ) => {
   debug(`Error: ${chalk.red.bold(error.message)}`);
 
-  const statusCode = error.statusCode || 500;
+  if (error instanceof ValidationError && error.details.body) {
+    const validationError = error.details.body
+      .map((joiError) => joiError.message.replaceAll('"', ""))
+      .join(" & ");
+
+    (error as CustomError).publicMessage = validationError;
+    debug(chalk.red(validationError));
+  }
+
+  const responseStatusCode = error.statusCode || statusCode.internalServerError;
 
   const message = error.statusCode
     ? error.message
-    : "General error, please try it in a few minutes";
+    : privateMessage.internalServerError;
 
-  res.status(statusCode).json({ message });
+  res.status(responseStatusCode).json({ message });
 };
