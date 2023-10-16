@@ -3,6 +3,7 @@ export interface StatusCode {
   unauthorized: number;
   notFound: number;
   internalServerError: number;
+  badRequest: number;
 }
 
 export interface PrivateAndPublicMessages {
@@ -10,4 +11,5 @@ export interface PrivateAndPublicMessages {
   unauthorized: string;
   notFound: string;
   internalServerError: string;
+  badRequest: string;
 }
