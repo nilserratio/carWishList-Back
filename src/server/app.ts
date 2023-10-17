@@ -18,7 +18,7 @@ app.disable("x-powered-by");
 
 app.use(morgan("dev"));
 
-app.use(express.json);
+app.use(express.json());
 
 app.use(paths.user, userRouter);
 

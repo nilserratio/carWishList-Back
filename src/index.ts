@@ -6,8 +6,10 @@ import connectToDatabase from "./database/connectToDatabase.js";
 
 const debug = createDebug("Recomotor-api:root");
 
-const port = process.env.PORT ?? 4000;
+const port = process.env.PORT ?? 4001;
 const mongoDbConnection = process.env.MONGODB_CONNECTION;
+
+const localhostUrl = `http://localhost:${port}`;
 
 if (!mongoDbConnection) {
   debug(chalk.red("Missing enviroment variable"));
@@ -15,7 +17,7 @@ if (!mongoDbConnection) {
 }
 
 app.listen(port, () => {
-  debug(`Listening on ${chalk.green(`http://localhost:${port}`)}`);
+  debug(`Listening on ${chalk.green(localhostUrl)}`);
 });
 
 try {
