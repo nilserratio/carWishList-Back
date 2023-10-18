@@ -40,4 +40,18 @@ describe("Given a getCars controller", () => {
       expect(res.json).toHaveBeenCalledWith(expectedResponseBody);
     });
   });
+
+  describe("When it receives a next function and the exec method rejects with an 'General Error' error", () => {
+    test("Then it should call next function with the 'General Error' error", async () => {
+      const expectedError = new TypeError("General Error");
+
+      Car.find = jest.fn().mockReturnValue({
+        exec: jest.fn().mockRejectedValue(expectedError),
+      });
+
+      await getCars(req as Request, res as Response, next);
+
+      expect(next).toHaveBeenCalledWith(expectedError);
+    });
+  });
 });
