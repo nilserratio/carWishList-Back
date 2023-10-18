@@ -7,6 +7,7 @@ import {
 } from "./middlewares/error/errorMiddlewares.js";
 import { paths } from "./utils/paths/paths.js";
 import userRouter from "./routers/user/userRouter.js";
+import carsRouter from "./routers/cars/carsRouter.js";
 
 const app = express();
 
@@ -21,6 +22,8 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 app.use(paths.user, userRouter);
+
+app.use(paths.cars, carsRouter);
 
 app.use(notFoundError);
 

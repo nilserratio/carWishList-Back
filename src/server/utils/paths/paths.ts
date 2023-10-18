@@ -4,4 +4,5 @@ export const paths: Paths = {
   root: "/",
   user: "/user",
   login: "/login",
+  cars: "/cars",
 };
