@@ -5,14 +5,15 @@ import { Types } from "mongoose";
 import {
   type UserCredentialsStructure,
   type UserCredentialsRequest,
-} from "../../../types";
+  type CustomResponse,
+} from "../../../types.js";
 import { loginUser } from "../userControllers.js";
 import User from "../../../../database/models/User.js";
-import CustomError from "../../../CustomError/CustomError";
+import CustomError from "../../../CustomError/CustomError.js";
 import {
   privateMessage,
   statusCode,
-} from "../../../utils/responseData/responseData";
+} from "../../../utils/responseData/responseData.js";
 
 beforeEach(() => {
   jest.clearAllMocks();
@@ -28,7 +29,7 @@ describe("Given a loginUser controller", () => {
     },
   };
 
-  const res: Pick<Response, "status" | "json"> = {
+  const res: CustomResponse = {
     status: jest.fn().mockReturnThis(),
     json: jest.fn(),
   };

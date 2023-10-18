@@ -7,7 +7,7 @@ export const getCars = async (
   next: NextFunction
 ) => {
   try {
-    const cars = await Car.find().limit(20).exec();
+    const cars = await Car.find().exec();
 
     res.status(200);
     res.json({ cars });
