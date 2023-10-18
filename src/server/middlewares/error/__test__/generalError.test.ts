@@ -1,5 +1,5 @@
 import { type Response, type Request, type NextFunction } from "express";
-import CustomError from "../../../CustomError/CustomError.js";
+import CustomError from "../../../../CustomError/CustomError.js";
 import { generalError } from "../errorMiddlewares.js";
 import {
   privateMessage,

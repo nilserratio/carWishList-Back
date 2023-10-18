@@ -1,7 +1,7 @@
 import { type Response, type Request } from "express";
 import { notFoundError } from "../errorMiddlewares.js";
 import { type NextFunction } from "connect";
-import CustomError from "../../../CustomError/CustomError.js";
+import CustomError from "../../../../CustomError/CustomError.js";
 import {
   privateMessage,
   statusCode,

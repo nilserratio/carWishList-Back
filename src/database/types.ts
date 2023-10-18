@@ -1,7 +1,6 @@
 import { type Types } from "mongoose";
 
 export interface CarDatabaseStructure {
-  id: string;
   nombre: string;
   img: string;
 }

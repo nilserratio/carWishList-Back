@@ -9,7 +9,7 @@ import {
 } from "../../../types.js";
 import { loginUser } from "../userControllers.js";
 import User from "../../../../database/models/User.js";
-import CustomError from "../../../CustomError/CustomError.js";
+import CustomError from "../../../../CustomError/CustomError.js";
 import {
   privateMessage,
   statusCode,
