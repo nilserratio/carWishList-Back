@@ -32,7 +32,7 @@ describe("Given a getCars controller", () => {
 
     test("Then it should call the response's method json with a list of cars", async () => {
       const expectedResponseBody = {
-        cars: carsMock,
+        marcas: carsMock,
       };
 
       await getCars(req as Request, res as Response, next);
