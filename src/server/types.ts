@@ -1,4 +1,5 @@
 import { type Response, type Request } from "express";
+import { type Types } from "mongoose";
 
 export type CustomResponse = Pick<Response, "status" | "json">;
 
@@ -16,3 +17,10 @@ export type UserCredentialsRequest = Request<
   Record<string, unknown>,
   UserCredentials
 >;
+
+export interface CustomRequest extends Request {
+  body: {
+    userId: string;
+    carId: Types.ObjectId;
+  };
+}

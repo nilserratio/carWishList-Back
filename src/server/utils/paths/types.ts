@@ -3,4 +3,5 @@ export interface Paths {
   user: string;
   login: string;
   cars: string;
+  favouritesAdd: string;
 }

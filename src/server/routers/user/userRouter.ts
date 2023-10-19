@@ -1,6 +1,9 @@
 import { Router } from "express";
 import { validate } from "express-validation";
-import { loginUser } from "../../controllers/user/userControllers.js";
+import {
+  addToFavorites,
+  loginUser,
+} from "../../controllers/user/userControllers.js";
 import { loginUserSchema } from "../../schemas/UserSchemas.js";
 import { paths } from "../../utils/paths/paths.js";
 
@@ -11,5 +14,7 @@ userRouter.post(
   validate(loginUserSchema, {}, { abortEarly: false }),
   loginUser
 );
+
+userRouter.post(paths.favouritesAdd, addToFavorites);
 
 export default userRouter;
