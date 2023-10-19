@@ -7,10 +7,10 @@ export const getCars = async (
   next: NextFunction
 ) => {
   try {
-    const cars = await Car.find().exec();
+    const marcas = await Car.find().exec();
 
     res.status(200);
-    res.json({ cars });
+    res.json({ marcas });
   } catch (error: unknown) {
     next(error);
   }

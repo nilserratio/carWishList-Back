@@ -34,7 +34,7 @@ describe("Given a GET '/cars' endpoint", () => {
     test("Then it should return a statusCode 200 and a list of cars", async () => {
       const response = await request(app).get(paths.cars).expect(statusCode.ok);
 
-      expect(response.body.cars).toHaveLength(2);
+      expect(response.body.marcas).toHaveLength(2);
     });
   });
 });
