@@ -15,6 +15,6 @@ userRouter.post(
   loginUser
 );
 
-userRouter.post(paths.favouritesAdd, addToFavorites);
+userRouter.post(`${paths.favorites}${paths.add}`, addToFavorites);
 
 export default userRouter;

@@ -1,8 +1,9 @@
 import { type NextFunction, type Response } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import mongoose from "mongoose";
 import {
-  type CustomRequest,
+  type FavouritesRequest,
   type UserCredentialsRequest,
 } from "../../types.js";
 import User from "../../../database/models/User.js";
@@ -49,14 +50,15 @@ export const loginUser = async (
 };
 
 export const addToFavorites = async (
-  req: CustomRequest,
+  req: FavouritesRequest,
   res: Response,
   next: NextFunction
 ) => {
-  const { userId, carId } = req.body;
+  const { carId, _id } = req.body;
 
   try {
-    const user = await User.findById(userId);
+    const user = await User.findById(_id).exec();
+
     if (!user) {
       const error = new CustomError(
         statusCode.unauthorized,
@@ -67,10 +69,17 @@ export const addToFavorites = async (
       throw error;
     }
 
-    if (!user.favoriteCars.includes(carId)) {
-      user.favoriteCars.push(carId);
-      await user.save();
+    const carObjectId = new mongoose.Types.ObjectId(carId);
+
+    const isFavorite = user.favoriteCars.some((favoriteCar) =>
+      favoriteCar.equals(carObjectId)
+    );
+
+    if (!isFavorite) {
+      user.favoriteCars.push(carObjectId);
     }
+
+    await user.save();
 
     res.status(200).json({ message: "Car added to favorites" });
   } catch (error) {

@@ -18,9 +18,12 @@ export type UserCredentialsRequest = Request<
   UserCredentials
 >;
 
-export interface CustomRequest extends Request {
-  body: {
-    userId: string;
-    carId: Types.ObjectId;
-  };
+export interface CustomRequest extends UserCredentialsStructure {
+  carId: Types.ObjectId;
 }
+
+export type FavouritesRequest = Request<
+  Record<string, unknown>,
+  Record<string, unknown>,
+  CustomRequest
+>;
