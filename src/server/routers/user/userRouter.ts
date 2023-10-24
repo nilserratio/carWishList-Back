@@ -1,6 +1,11 @@
 import { Router } from "express";
 import { validate } from "express-validation";
-import { loginUser } from "../../controllers/user/userControllers.js";
+import {
+  addToFavorites,
+  getUserFavorites,
+  loginUser,
+  removeFromFavorites,
+} from "../../controllers/user/userControllers.js";
 import { loginUserSchema } from "../../schemas/UserSchemas.js";
 import { paths } from "../../utils/paths/paths.js";
 
@@ -11,5 +16,11 @@ userRouter.post(
   validate(loginUserSchema, {}, { abortEarly: false }),
   loginUser
 );
+
+userRouter.post(`${paths.favorites}${paths.add}`, addToFavorites);
+
+userRouter.post(`${paths.favorites}${paths.remove}`, removeFromFavorites);
+
+userRouter.get(`${paths.favorites}/:_id`, getUserFavorites);
 
 export default userRouter;

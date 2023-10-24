@@ -12,6 +12,12 @@ const userSchema = new Schema({
     type: String,
     required: true,
   },
+  favoriteCars: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Car",
+    },
+  ],
 });
 
 const User = model("User", userSchema, "users");

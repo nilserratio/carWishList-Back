@@ -5,4 +5,7 @@ export const paths: Paths = {
   user: "/user",
   login: "/login",
   cars: "/cars",
+  favorites: "/favorites",
+  add: "/add",
+  remove: "/remove",
 };

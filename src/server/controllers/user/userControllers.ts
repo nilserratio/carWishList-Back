@@ -1,7 +1,11 @@
 import { type NextFunction, type Response } from "express";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import bcrypt from "bcryptjs";
-import { type UserCredentialsRequest } from "../../types.js";
+import mongoose from "mongoose";
+import {
+  type FavouritesRequest,
+  type UserCredentialsRequest,
+} from "../../types.js";
 import User from "../../../database/models/User.js";
 import CustomError from "../../../CustomError/CustomError.js";
 import {
@@ -40,6 +44,104 @@ export const loginUser = async (
     });
 
     res.status(200).json({ token });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const addToFavorites = async (
+  req: FavouritesRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { carId, _id } = req.body;
+
+  try {
+    const user = await User.findById(_id).exec();
+
+    if (!user) {
+      const error = new CustomError(
+        statusCode.unauthorized,
+        privateMessage.unauthorized,
+        publicMessage.unauthorized
+      );
+
+      throw error;
+    }
+
+    const carObjectId = new mongoose.Types.ObjectId(carId);
+
+    const isFavorite = user.favoriteCars.some((favoriteCar) =>
+      favoriteCar.equals(carObjectId)
+    );
+
+    if (!isFavorite) {
+      user.favoriteCars.push(carObjectId);
+    }
+
+    await user.save();
+
+    res.status(200).json({ message: "Car added to favorites" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const removeFromFavorites = async (
+  req: FavouritesRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { carId, _id } = req.body;
+
+  try {
+    const user = await User.findById(_id).exec();
+
+    if (!user) {
+      const error = new CustomError(
+        statusCode.unauthorized,
+        privateMessage.unauthorized,
+        publicMessage.unauthorized
+      );
+
+      throw error;
+    }
+
+    const index = user.favoriteCars.indexOf(carId);
+    if (index !== -1) {
+      user.favoriteCars.splice(index, 1);
+      await user.save();
+    }
+
+    res.status(200).json({ message: "Car eliminated from favorites" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const getUserFavorites = async (
+  req: FavouritesRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { _id } = req.params;
+
+  try {
+    const userById = await User.findById(_id).exec();
+
+    if (!userById) {
+      const error = new CustomError(
+        statusCode.unauthorized,
+        privateMessage.unauthorized,
+        publicMessage.unauthorized
+      );
+
+      throw error;
+    }
+
+    const { favoriteCars } = userById;
+
+    res.status(200).json({ favoriteCars });
   } catch (error) {
     next(error);
   }

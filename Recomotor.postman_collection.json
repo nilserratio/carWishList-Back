@@ -1,0 +1,94 @@
+{
+  "info": {
+    "_postman_id": "839fe143-ecd5-4f04-9338-c8526aab08a1",
+    "name": "Recomotor",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+    "_exporter_id": "27029985"
+  },
+  "item": [
+    {
+      "name": "POST /user/login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:4001/user/login"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /cars",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:4001/cars"
+      },
+      "response": []
+    },
+    {
+      "name": "POST /user/favorites/add",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NTJhNjdmYjFhZTQxOTc4MjU5NmY1NWEiLCJuYW1lIjoiYWRtaW4iLCJpYXQiOjE2OTgwNTM1ODksImV4cCI6MTY5ODY1ODM4OX0.zT0Wdnl_drCMjKnMyiKD7KGrf_70n8RS_h3UjxX-DC8"
+          }
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"_id\": \"652a67fb1ae419782596f55a\",\r\n    \"carId\": \"5f4a6c610f74d82b6b14644a\"\r\n  }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:4001/user/favorites/add"
+      },
+      "response": []
+    },
+    {
+      "name": "DELETE /user/favorites/remove",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n    \"_id\": \"652a67fb1ae419782596f55a\",\r\n    \"carId\": \"5f4a6c610f74d82b6b14644a\"\r\n  }",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": "http://localhost:4001/user/favorites/remove"
+      },
+      "response": []
+    },
+    {
+      "name": "GET /user/favorites",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": "http://localhost:4001/user/favorites/652a67fb1ae419782596f55a"
+      },
+      "response": []
+    }
+  ]
+}

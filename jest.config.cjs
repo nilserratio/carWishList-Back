@@ -12,5 +12,6 @@ module.exports = {
     "!**/userRouter.ts",
     "!**/UserSchemas.ts",
     "!**/paths.ts",
+    "!**/userControllers.ts",
   ],
 };
