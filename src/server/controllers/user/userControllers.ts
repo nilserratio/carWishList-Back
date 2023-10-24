@@ -86,3 +86,35 @@ export const addToFavorites = async (
     next(error);
   }
 };
+
+export const removeFromFavorites = async (
+  req: FavouritesRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { carId, _id } = req.body;
+
+  try {
+    const user = await User.findById(_id).exec();
+
+    if (!user) {
+      const error = new CustomError(
+        statusCode.unauthorized,
+        privateMessage.unauthorized,
+        publicMessage.unauthorized
+      );
+
+      throw error;
+    }
+
+    const index = user.favoriteCars.indexOf(carId);
+    if (index !== -1) {
+      user.favoriteCars.splice(index, 1);
+      await user.save();
+    }
+
+    res.status(200).json({ message: "Car eliminated from favorites" });
+  } catch (error) {
+    next(error);
+  }
+};
