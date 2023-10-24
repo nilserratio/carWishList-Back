@@ -118,3 +118,31 @@ export const removeFromFavorites = async (
     next(error);
   }
 };
+
+export const getUserFavorites = async (
+  req: FavouritesRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { _id } = req.params;
+
+  try {
+    const userById = await User.findById(_id).exec();
+
+    if (!userById) {
+      const error = new CustomError(
+        statusCode.unauthorized,
+        privateMessage.unauthorized,
+        publicMessage.unauthorized
+      );
+
+      throw error;
+    }
+
+    const { favoriteCars } = userById;
+
+    res.status(200).json({ favoriteCars });
+  } catch (error) {
+    next(error);
+  }
+};
