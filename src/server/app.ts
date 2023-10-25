@@ -11,7 +11,10 @@ import carsRouter from "./routers/cars/carsRouter.js";
 
 const app = express();
 
-const trustedOrigins = [process.env.ALLOWED_ORIGIN_DEV!];
+const trustedOrigins = [
+  process.env.ALLOWED_ORIGIN_DEV!,
+  process.env.ALLOWED_ORIGIN_PROD!,
+];
 
 app.use(cors({ origin: trustedOrigins }));
 
